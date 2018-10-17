@@ -14,6 +14,8 @@ RUN apk add --no-cache python3 python3-dev && \
     if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
     rm -r /root/.cache
 
+RUN pip install pandas numpy
+
 RUN apk upgrade --update-cache --available \
     && apk update \
     && apk add --no-cache \
