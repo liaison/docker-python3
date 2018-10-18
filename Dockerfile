@@ -97,21 +97,13 @@ RUN cd /usr/local/bin \
     && ln -s pydoc3 pydoc \
     && ln -s python3-config python-config
 
+
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
-ENV PYTHON_PIP_VERSION 18.1
+ENV PYTHON_PIP_VERSION 9.0.1
 
 RUN set -ex; \
     \
-    savedAptMark="$(apt-mark showmanual)"; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends wget; \
-    \
     wget -O get-pip.py 'https://bootstrap.pypa.io/get-pip.py'; \
-    \
-    apt-mark auto '.*' > /dev/null; \
-    [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark; \
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    rm -rf /var/lib/apt/lists/*; \
     \
     python get-pip.py \
         --disable-pip-version-check \
@@ -122,11 +114,12 @@ RUN set -ex; \
     \
     find /usr/local -depth \
         \( \
-                    \( -type d -a \( -name test -o -name tests \) \) \
+                    \( -type d -a -name test -o -name tests \) \
                     -o \
-                    \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+                    \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
                 \) -exec rm -rf '{}' +; \
     rm -f get-pip.py
+
 
 
 RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev
