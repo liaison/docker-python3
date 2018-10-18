@@ -95,7 +95,6 @@ RUN set -ex \
 RUN cd /usr/local/bin \
     && ln -s idle3 idle \
     && ln -s pydoc3 pydoc \
-    && ln -s python3 python3.6 \
     && ln -s python3-config python-config
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
