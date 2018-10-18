@@ -123,7 +123,7 @@ RUN set -ex; \
 
 
 
-RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev
+#RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev
 
 RUN pip3 install --upgrade pip setuptools && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
